@@ -41,10 +41,13 @@ jobs:
           CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
         run: |
           NOW=$(date)
-          successMessage="
+          successMessage=
+            "
+              ${{ github.event_name }} event triggered by ${GITHUB_ACTOR}} with ${GITHUB_SHA}}
+              git diff --name-only ${{ github.event.before }} ${{ github.sha }}
             Commit Date and Time: ${{ github.event.head_commit.timestamp }}
-            Commit Author ${{ github.event.head_commit.author.email }}
-            Commit Message ${{ github.event.head_commit.message }}
+            Commit Author : ${{ github.event.head_commit.author.email }}
+            Commit Message : ${{ github.event.head_commit.message }}
             "
           response=$(curl -s -X POST \
             -d "chat_id=$CHAT_ID" \
