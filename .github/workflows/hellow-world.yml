@@ -59,21 +59,19 @@ jobs:
           # For example:
           npm run build || exit 1
 
-      # Check if deployment was successful
-      - name: Check Deployment Status
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: ${{ always() }} # Ensure this job runs regardless of the outcome of previous jobs
+    steps:
+      - name: Notify on Failure
         if: ${{ failure() }}
         run: |
-          successMessage="Deployment failure."
-          response=$(curl -s -X POST \
-          -d "chat_id=$CHAT_ID" \
-          -d "text=$successMessage" \
-          https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
           echo "Deployment failed! Sending notification..."
-        # Send notification (e.g., via Telegram, Slack, email, etc.)
+          # Send notification (e.g., via Telegram, Slack, email, etc.)
 
-      # If deployment was successful, continue with other steps
-      - name: Continue with Post-Deployment Steps
+      - name: Notify on Success
         if: ${{ success() }}
         run: |
-          echo "Deployment successful! Continuing with post-deployment steps..."
-          # Perform any additional post-deployment tasks
+          echo "Deployment successful! Sending notification..."
+          # Send notification (e.g., via Telegram, Slack, email, etc.)
