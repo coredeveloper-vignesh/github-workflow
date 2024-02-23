@@ -38,11 +38,12 @@ jobs:
       - name: Send Telegram Message
         env:
           app_id: 1
+          TELEGRAM_TOKEN: 6967691600:AAEiHVupwTpWjtT7HovVAI_X8sM4ZWy58ok
         run: |
-          successMessage="The APP ID ${app_id} ${{secrets.TELEGRAM_TOKEN}} Frontend has been successfully deployed on the testing server."
+          successMessage="The APP ID ${app_id} ${{env.TELEGRAM_TOKEN}} Frontend has been successfully deployed on the testing server."
           response=$(curl -s -X POST \
             -d "chat_id=-4135594593" \
             -d "text=$successMessage" \
-            https://api.telegram.org/bot${{secrets.TELEGRAM_TOKEN}}/sendMessage)
-          echo "${{secrets.TELEGRAM_TOKEN}}"
+            https://api.telegram.org/bot${{env.TELEGRAM_TOKEN}}/sendMessage)
+          echo "${{env.TELEGRAM_TOKEN}}"
           echo "Telegram API Response: $response"
