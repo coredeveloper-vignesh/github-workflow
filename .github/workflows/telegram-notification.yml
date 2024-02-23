@@ -1,0 +1,27 @@
+name: Telegram Notification
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+# jobs:
+#   send-telegram-message:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Send Telegram Message
+#         uses: appleboy/telegram-action@v0.0.2
+#         with:
+#           to: ${{ secrets.TELEGRAM_CHAT_ID }}
+#           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#           message: "New commit on branch ${GITHUB_REF}: ${GITHUB_SHA}"
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Send Telegram Message
+        run: echo"Hello World"
+        shell: bash
