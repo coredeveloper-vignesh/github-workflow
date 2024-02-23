@@ -41,7 +41,7 @@ jobs:
           CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
         run: |
           NOW=$(date)
-          successMessage="$NOW"
+          successMessage="$NOW - ${{ github.event.head_commit.message }}"
           response=$(curl -s -X POST \
             -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
