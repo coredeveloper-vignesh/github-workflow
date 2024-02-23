@@ -39,10 +39,11 @@ jobs:
         env:
           app_id: 1
           TELEGRAM_TOKEN: 6967691600:AAEiHVupwTpWjtT7HovVAI_X8sM4ZWy58ok
+          CHAT_ID: -4135594593
         run: |
           successMessage="The APP ID ${app_id} ${{env.TELEGRAM_TOKEN}} Frontend has been successfully deployed on the testing server."
           response=$(curl -s -X POST \
-            -d "chat_id=-4135594593" \
+            -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
             https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
           echo "${{env.TELEGRAM_TOKEN}}"
