@@ -1,4 +1,4 @@
-name: Telegram Notification
+name: Hello World
 
 on:
   push:
