@@ -53,3 +53,25 @@ jobs:
             -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
             https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
+        # Your deployment steps here
+      - name: Build and Deploy
+        run: |
+          # Commands to build and deploy your application
+          # If deployment fails, exit with a non-zero status code
+          # For example:
+          npm run build || exit 1
+
+      # Check if deployment was successful
+      - name: Check Deployment Status
+        if: ${{ failure() }}
+        run: |
+          echo "Deployment failed! Sending notification..."
+          # Send notification (e.g., via Telegram, Slack, email, etc.)
+
+      # If deployment was successful, continue with other steps
+      - name: Continue with Post-Deployment Steps
+        if: ${{ success() }}
+        run: |
+          echo "Deployment successful! Continuing with post-deployment steps..."
+          # Perform any additional post-deployment tasks
