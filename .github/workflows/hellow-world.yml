@@ -41,7 +41,7 @@ jobs:
           TELEGRAM_TOKEN: 6967691600:AAEiHVupwTpWjtT7HovVAI_X8sM4ZWy58ok
           CHAT_ID: -4135594593
         run: |
-          successMessage="The APP ID ${app_id} ${{env.TELEGRAM_TOKEN}} Frontend has been successfully deployed on the testing server."
+          successMessage="$NOW >> $GITHUB_OUTPUT"
           response=$(curl -s -X POST \
             -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
