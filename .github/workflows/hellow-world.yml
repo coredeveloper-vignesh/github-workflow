@@ -57,6 +57,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/github-workflow:latest
 
+      - name: Capture Console Logs
+        run: |
+          consoleLog=$(tail -n 1000 $GITHUB_WORKSPACE/repo_log_${GITHUB_RUN_ID}.txt)
+          echo "$consoleLog" > repo_log_${GITHUB_RUN_ID}.txt
+
       - name: Notify on Failure
         env:
           TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
@@ -67,6 +72,7 @@ jobs:
           response=$(curl -s -X POST \
             -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
+            -F "document=$GITHUB_WORKSPACE/repo_log_${GITHUB_RUN_ID}.txt" \
             https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
 
       - name: Notify on Success
