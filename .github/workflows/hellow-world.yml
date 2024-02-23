@@ -46,5 +46,5 @@ jobs:
             -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
             https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
-          echo "${{env.TELEGRAM_TOKEN}}"
+          echo "${{secrets.TELEGRAM_TOKEN}}"
           echo "Telegram API Response: $response"
