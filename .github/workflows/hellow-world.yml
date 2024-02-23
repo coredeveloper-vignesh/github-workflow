@@ -35,10 +35,7 @@ jobs:
           # Your deployment steps here
       - name: Build and Deploy
         run: |
-          # Commands to build and deploy your application
-          # If deployment fails, exit with a non-zero status code
-          # For example:
-           npm run build || exit 1
+          npm i -f
 
       - name: Notify on Failure
         env:
@@ -46,7 +43,6 @@ jobs:
           CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
         if: ${{ failure() }}
         run: |
-          cat error.log
           successMessage="Deployment failed! Sending notification..."
           response=$(curl -s -X POST \
             -d "chat_id=$CHAT_ID" \
