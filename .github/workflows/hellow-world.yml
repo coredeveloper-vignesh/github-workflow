@@ -39,7 +39,7 @@ jobs:
         env:
           app_id: 1
         run: |
-          successMessage="The APP ID ${app_id} Frontend has been successfully deployed on the testing server."
+          successMessage="The APP ID ${app_id} ${{secrets.TELEGRAM_TOKEN}} Frontend has been successfully deployed on the testing server."
           response=$(curl -s -X POST \
             -d "chat_id=-4135594593" \
             -d "text=$successMessage" \
