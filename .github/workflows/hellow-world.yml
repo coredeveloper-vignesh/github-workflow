@@ -67,11 +67,17 @@ jobs:
       - name: Notify on Failure
         if: ${{ failure() }}
         run: |
-          echo "Deployment failed! Sending notification..."
-          # Send notification (e.g., via Telegram, Slack, email, etc.)
+          successMessage="Deployment failed! Sending notification..."
+          response=$(curl -s -X POST \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$successMessage" \
+            https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
 
       - name: Notify on Success
         if: ${{ success() }}
         run: |
-          echo "Deployment successful! Sending notification..."
-          # Send notification (e.g., via Telegram, Slack, email, etc.)
+          successMessage="Deployment successful! Sending notification..."
+          response=$(curl -s -X POST \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$successMessage" \
+            https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
