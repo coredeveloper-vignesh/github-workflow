@@ -37,11 +37,10 @@ jobs:
     steps:
       - name: Send Telegram Message
         env:
-          app_id: 1
           TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
           CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
         run: |
-          successMessage="$now >> $GITHUB_OUTPUT"
+          successMessage="$date"
           response=$(curl -s -X POST \
             -d "chat_id=$CHAT_ID" \
             -d "text=$successMessage" \
