@@ -38,7 +38,7 @@ jobs:
         run: |
           successMessage="The APP ID  Frontend has been successfully deployed on the testing server."
           response=$(curl -s -X POST \
-            -d "chat_id=-1697557115" \
+            -d "chat_id=-4135594593" \
             -d "text=$successMessage" \
             https://api.telegram.org/bot6967691600:AAEiHVupwTpWjtT7HovVAI_X8sM4ZWy58ok/sendMessage)
           echo "Telegram API Response: $response"
