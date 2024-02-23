@@ -63,12 +63,7 @@ jobs:
       - name: Check Deployment Status
         if: ${{ failure() }}
         run: |
-          successMessage="
-          Commit Date and Time: ${{ github.event.head_commit.timestamp }}
-          Commit Name : ${{ github.event.head_commit.author.name }}
-          Commit Author : ${{ github.event.head_commit.author.email }}
-          Commit Message : ${{ github.event.head_commit.message }}
-          "
+          successMessage="Deployment failure."
           response=$(curl -s -X POST \
           -d "chat_id=$CHAT_ID" \
           -d "text=$successMessage" \
