@@ -35,7 +35,8 @@ jobs:
           # Your deployment steps here
       - name: Build and Deploy
         run: |
-          npm i -f
+          npm i --force
+          node app.js
 
       - name: Notify on Failure
         env:
