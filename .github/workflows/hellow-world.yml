@@ -43,6 +43,6 @@ jobs:
           response=$(curl -s -X POST \
             -d "chat_id=-4135594593" \
             -d "text=$successMessage" \
-            https://api.telegram.org/bot6967691600:AAEiHVupwTpWjtT7HovVAI_X8sM4ZWy58ok/sendMessage)
+            https://api.telegram.org/bot${{secrets.TELEGRAM_TOKEN}}/sendMessage)
           echo "${{secrets.TELEGRAM_TOKEN}}"
           echo "Telegram API Response: $response"
