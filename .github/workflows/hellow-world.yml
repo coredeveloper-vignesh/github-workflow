@@ -31,3 +31,16 @@ jobs:
 
       - name: Check Node Version
         run: node -v
+  send-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram Message
+        run: |
+          successMessage="The APP ID  Frontend has been successfully deployed on the testing server."
+          response=$(curl -s -X POST \
+            -d "chat_id=-1697557115" \
+            -d "text=$successMessage" \
+            https://api.telegram.org/bot6967691600:AAEiHVupwTpWjtT7HovVAI_X8sM4ZWy58ok/sendMessage)
+          echo "Telegram API Response: $response"
+        env:
+          app_id: 1
