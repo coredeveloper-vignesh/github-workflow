@@ -40,6 +40,30 @@ jobs:
           # For example:
           npm run build || exit 1
 
+      - name: Notify on Failure
+        env:
+          TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+          CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+        if: ${{ failure() }}
+        run: |
+          successMessage="Deployment failed! Sending notification..."
+          response=$(curl -s -X POST \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$successMessage" \
+            https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
+      - name: Notify on Success
+        env:
+          TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+          CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+        if: ${{ success() }}
+        run: |
+          successMessage="Deployment successful! Sending notification..."
+          response=$(curl -s -X POST \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$successMessage" \
+            https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
   # send-notification:
   #   runs-on: ubuntu-latest
   #   steps:
