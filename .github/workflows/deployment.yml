@@ -24,11 +24,11 @@ jobs:
       - name: Check Node Version
         run: node -v
 
+      - name: Install Angular/cli
+        run: yarn add -g @angular/cli@15
+
       - name: Install Dependencies
         run: yarn
-
-      - name: Install Angular/cli
-        run: npm i -g @angular/cli@15
 
       - name: Build Angular Application
         run: ng build
