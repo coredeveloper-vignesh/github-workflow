@@ -52,6 +52,6 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ../../
           push: true
           tags: ${{secrets.DOCKER_USERNAME }}/github-workflow:latest
