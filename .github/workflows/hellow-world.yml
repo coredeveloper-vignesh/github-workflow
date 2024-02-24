@@ -64,8 +64,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            scp -r ./* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/vignesh
-
+            scp -r ./* ubuntu@35.174.109.4:/home/ubuntu/vignesh
       # - name: SSH into Server and Run PM2
       #   uses: appleboy/ssh-action@master Vignesh@Getster-tech@123@#$
       #   with:
