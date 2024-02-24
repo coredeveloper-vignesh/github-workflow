@@ -19,7 +19,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 20.x
+
+      - name: Check Node Version
+        run: node -v
 
       - name: Install Dependencies
         run: yarn
