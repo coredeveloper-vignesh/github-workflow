@@ -27,5 +27,8 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Install Angular/cli
+        run: npm i -g @angular/cli@15
+
       - name: Build Angular Application
         run: ng build
