@@ -64,7 +64,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             echo "Connected to server"
-            scp -r ./* ubuntu@35.174.109.4:/home/ubuntu/vignesh
+            scp -r ./* ${{ secrets.SERVER_USERNAME }}@${{secrets.SERVER_HOST}}:/home/ubuntu/vignesh
           # Add your commands here
 
       # - name: Transfer Files to Server
