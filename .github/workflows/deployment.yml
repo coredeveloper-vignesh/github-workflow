@@ -11,3 +11,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build Angular Application
+        run: ng build

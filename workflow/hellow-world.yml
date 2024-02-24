@@ -1,0 +1,185 @@
+name: Hello World
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+# jobs:
+#   send-telegram-message:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Send Telegram Message
+#         uses: appleboy/telegram-action@v0.0.2
+#         with:
+#           to: ${{ secrets.TELEGRAM_CHAT_ID }}
+#           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#           message: "New commit on branch ${GITHUB_REF}: ${GITHUB_SHA}"
+jobs:
+  # deploy: #Job Name
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v2
+
+  #     - name: Use Node.js 20.x
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 20.x
+
+  #     - name: Check Node Version
+  #       run:
+  #         node -v
+  #         # Your deployment steps here
+  #     - name: Build and Deploy
+  #       run: |
+  #         npm i --force
+  #         # node app.js
+
+  #     # - name: Set up QEMU
+  #     #   uses: docker/setup-qemu-action@v1
+
+  #     # - name: Set up Docker Buildx
+  #     #   uses: docker/setup-buildx-action@v3
+
+  #     # - name: Login to Docker Hub
+  #     #   uses: docker/login-action@v1
+  #     #   with:
+  #     #     username: ${{ secrets.DOCKER_USERNAME }}
+  #     #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+  #     # - name: Build and Push Docker Image
+  #     #   uses: docker/build-push-action@v2
+  #     #   with:
+  #     #     context: .
+  #     #     push: true
+  #     #     tags: ${{secrets.DOCKER_USERNAME }}/github-workflow:latest
+
+  #     - name: Install SSHpass
+  #       run: sudo apt-get install -y sshpass
+
+  #     - name: SSH into Server and Run Commands
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.SERVER_HOST }}
+  #         username: ${{ secrets.SERVER_USERNAME }}
+  #         password: ${{ secrets.SSH_PASSWORD }}
+  #         script: |
+  #           echo "Connected to server"
+  #           scp -r ./* ${{ secrets.SERVER_USERNAME }}@${{secrets.SERVER_HOST}}:/home/ubuntu/vignesh
+  #         # Add your commands here
+
+  #     # - name: Transfer Files to Server
+  #     #   uses: appleboy/ssh-action@master
+  #     #   with:
+  #     #     host: ${{ secrets.SERVER_HOST }}
+  #     #     username: ${{ secrets.SERVER_USERNAME }}
+  #     #     password: Vignesh@123
+  #     #     script: |
+  #     #       scp -r ./* ubuntu@35.174.109.4:/home/ubuntu/vignesh
+
+  #     # - name: SSH into Server and Run PM2
+  #     #   uses: appleboy/ssh-action@master Vignesh@Getster-tech@123@#$
+  #     #   with:
+  #     #     host: ${{ secrets.SERVER_HOST }}
+  #     #     username: ${{ secrets.SERVER_USERNAME }}
+  #     #     password: ${{ secrets.SSH_PASSWORD }}
+  #     #     script: |
+  #     #       cd /path/to/your/server/directory
+  #     #       pm2 start server.js --name="angular-app" --watch
+
+  #     - name: Notify on Failure
+  #       env:
+  #         TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+  #         CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+  #       if: ${{ failure() }}
+  #       run: |
+  #         successMessage="Deployment failed! Sending notification..."
+  #         response=$(curl -s -X POST \
+  #           -d "chat_id=$CHAT_ID" \
+  #           -d "text=$successMessage" \
+  #           https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
+  #     - name: Notify on Success
+  #       env:
+  #         TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+  #         CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+  #       if: ${{ success() }}
+  #       run: |
+  #         successMessage="
+  #           Commit Date and Time: ${{ github.event.head_commit.timestamp }}
+  #           Commit Name : ${{ github.event.head_commit.author.name }}
+  #           Commit Author : ${{ github.event.head_commit.author.email }}
+  #           Commit Message : ${{ github.event.head_commit.message }}
+  #           "
+  #         response=$(curl -s -X POST \
+  #           -d "chat_id=$CHAT_ID" \
+  #           -d "text=$successMessage" \
+  #           https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSHpass
+        run: sudo apt-get install -y sshpass
+
+      - name: SSH into Server and Run Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            echo "Connected to server"
+            ssh ubuntu@35.174.109.4 -p Vignesh@123
+            # scp -r ./* ubuntu@35.174.109.4:/home/ubuntu/vignesh
+            # Add your commands here
+  # send-notification:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Send Telegram Message
+  #       env:
+  #         TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+  #         CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+  #       run: |
+  #         successMessage="
+  #           Commit Date and Time: ${{ github.event.head_commit.timestamp }}
+  #           Commit Name : ${{ github.event.head_commit.author.name }}
+  #           Commit Author : ${{ github.event.head_commit.author.email }}
+  #           Commit Message : ${{ github.event.head_commit.message }}
+  #           "
+  #         response=$(curl -s -X POST \
+  #           -d "chat_id=$CHAT_ID" \
+  #           -d "text=$successMessage" \
+  #           https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
+  # notify:
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+  #   if: ${{ always() }} # Ensure this job runs regardless of the outcome of previous jobs
+  #   steps:
+  #     - name: Notify on Failure
+  #       env:
+  #         TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+  #         CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+  #       if: ${{ failure() }}
+  #       run: |
+  #         successMessage="Deployment failed! Sending notification..."
+  #         response=$(curl -s -X POST \
+  #           -d "chat_id=$CHAT_ID" \
+  #           -d "text=$successMessage" \
+  #           https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
+
+  #     - name: Notify on Success
+  #       env:
+  #         TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+  #         CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+  #       if: ${{ success() }}
+  #       run: |
+  #         successMessage="Deployment successful! Sending notification..."
+  #         response=$(curl -s -X POST \
+  #           -d "chat_id=$CHAT_ID" \
+  #           -d "text=$successMessage" \
+  #           https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage)
