@@ -85,7 +85,6 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: vignesh
           script: |
             echo "Connected to server"
             scp -r ./* ${{ secrets.SERVER_USERNAME }}@${{secrets.SERVER_HOST}}:/home/ubuntu/vignesh
