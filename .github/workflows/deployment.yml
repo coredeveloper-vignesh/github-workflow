@@ -75,6 +75,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Add a step to list files in the public directory
+      - name: List files in the public directory
+        run: ls -al ./public
+
       - name: Copy files via scp
         uses: appleboy/scp-action@master
         with:
