@@ -1,9 +1,20 @@
-FROM node:14-alpine3.16
+# Use the official Node.js image as the base image
+FROM node:14
 
-WORKDIR /app
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
 COPY . .
 
-RUN npm install -f
+# Expose the port on which your Express.js application will run
+EXPOSE 3000
 
-CMD [ "npm", "start" ]
+# Command to run the application
+CMD ["node", "app.js"]
