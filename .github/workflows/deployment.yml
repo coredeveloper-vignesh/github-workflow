@@ -77,7 +77,7 @@ jobs:
     steps:
       # Add a step to   list files in the public directory
       - name: List files in the public  directory
-        run: cd ~repository
+        run: cd ~
 
       # - name: Copy files via scp
       #   uses: appleboy/ssh-action@master
